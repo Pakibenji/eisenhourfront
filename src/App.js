@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import NewTask from "./components/NewTask";
 import Header from "./components/Header";
-import Task from "./components/Task";
+import UrgentImportant from "./components/UrgentImportant";
+import UrgentNotImportant from "./components/UrgentNotImportant";
+import ImportantNotUrgent from "./components/ImportantNotUrgent";
+import NotImportantNotUrgent from "./components/NotImportantNotUrgent";
+
 
 const App = () => {
   const [data, setData] = useState("");
@@ -40,10 +44,10 @@ const App = () => {
       <Header />
       <NewTask handleCreateTask={handleCreateTask} setTitle={setTitle} setDescription={setDescription} setCategory={setCategory} setStatus={setStatus}/>
       <section className="gridContainer">
-        {data &&
-          data.map((item) => (
-            <Task key={item.id} item={item}/>
-          ))}
+        <UrgentImportant data={data} />
+        <UrgentNotImportant data={data} />
+        <ImportantNotUrgent data={data} />
+        <NotImportantNotUrgent data={data} />
       </section>
     </>
   );

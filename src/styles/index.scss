@@ -1,3 +1,7 @@
 @import "./settings";
 @import "./components/Task";
+@import "./components/UrgentImportant";
+@import "./components/UrgentNotImportant";
+@import "./components/ImportantNotUrgent";
+@import "./components/NotImportantNotUrgent";
 @import "./app"
