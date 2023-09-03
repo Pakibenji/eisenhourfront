@@ -11,7 +11,6 @@ import NotImportantNotUrgent from "./components/NotImportantNotUrgent";
 const App = () => {
   const [data, setData] = useState("");
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
   const [category, setCategory] = useState("urgent/important");
   const [status, setStatus] = useState(0);
   const [isCreateTask, setIsCreateTask] = useState(false);
@@ -25,14 +24,12 @@ const App = () => {
     e.preventDefault();
     await axios.post("http://localhost:3000", {
       title,
-      description,
       date: Date.now(),
       category,
       status,
     });
     fetchData();
     setTitle("");
-    setDescription("");
     setCategory("urgent/important");
     setStatus(0);
     setIsCreateTask(false);
@@ -44,12 +41,8 @@ const App = () => {
   };
 
   const handleChangeCategory = async (id, newCategory) => {
-    try {
       await axios.put(`http://localhost:3000/${id}`, { category: newCategory });
       fetchData();
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour de la catégorie :", error);
-    }
   };
 
   const wantToCreateTask = () => {
@@ -67,7 +60,6 @@ const App = () => {
         handleCreateTask={handleCreateTask}
         wantToCreateTask={wantToCreateTask}
         setTitle={setTitle}
-        setDescription={setDescription}
         setCategory={setCategory}
         setStatus={setStatus}
         isCreateTask={isCreateTask}

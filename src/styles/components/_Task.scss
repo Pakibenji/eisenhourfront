@@ -1,0 +1,35 @@
+.task {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease-in-out;
+  font-family: $taskFont;
+  & .titleDate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    & p {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+    }
+  }
+  & svg {
+    font-size: 2rem;
+    fill: #333;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      fill: #66afe9;
+    }
+  }
+}
+
+

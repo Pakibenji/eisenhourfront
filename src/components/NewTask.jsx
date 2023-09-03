@@ -3,7 +3,6 @@ import React from "react";
 const NewTask = ({
   handleCreateTask,
   setTitle,
-  setDescription,
   setCategory,
   wantToCreateTask,
   isCreateTask,
@@ -19,11 +18,6 @@ const NewTask = ({
             type="text"
             placeholder="title"
             onInput={(e) => setTitle(e.target.value)}
-          />
-          <textarea
-            type="text"
-            placeholder="description"
-            onInput={(e) => setDescription(e.target.value)}
           />
           <select
             name="category"
