@@ -1,12 +1,7 @@
-import React, { useState, useEffect, useContext} from "react";
+import React, { useState, useEffect} from "react";
 import axios from "axios";
 import NewTask from "./components/NewTask";
 import Header from "./components/Header";
-import UrgentImportant from "./components/UrgentImportant";
-import UrgentNotImportant from "./components/UrgentNotImportant";
-import ImportantNotUrgent from "./components/ImportantNotUrgent";
-import NotImportantNotUrgent from "./components/NotImportantNotUrgent";
-import { TaskContext } from "./context/TaskContextProvider";
 
 const App = () => {
   const [data, setData] = useState("");
@@ -15,13 +10,10 @@ const App = () => {
   const [category, setCategory] = useState("urgent/important");
   const [status, setStatus] = useState(0);
   const [isCreateTask, setIsCreateTask] = useState(false);
-  const { tasks, refreshTasksState } = useContext(TaskContext);
 
   const fetchData = async () => {
     const result = await axios.get("http://localhost:3000");
-    await setData(result.data);
-    await refreshTasksState(result.data);
-    console.log("tasks:", tasks);
+    setData(result.data);
   };
 
   const handleCreateTask = async (e) => {
