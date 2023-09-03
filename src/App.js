@@ -2,6 +2,11 @@ import React, { useState, useEffect} from "react";
 import axios from "axios";
 import NewTask from "./components/NewTask";
 import Header from "./components/Header";
+import UrgentImportant from "./components/UrgentImportant";
+import UrgentNotImportant from "./components/UrgentNotImportant";
+import ImportantNotUrgent from "./components/ImportantNotUrgent";
+import NotImportantNotUrgent from "./components/NotImportantNotUrgent";
+
 
 const App = () => {
   const [data, setData] = useState("");
@@ -41,7 +46,6 @@ const App = () => {
   const handleChangeCategory = async (id, newCategory) => {
     try {
       await axios.put(`http://localhost:3000/${id}`, { category: newCategory });
-      
       fetchData();
     } catch (error) {
       console.error("Erreur lors de la mise à jour de la catégorie :", error);
