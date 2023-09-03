@@ -1,7 +1,7 @@
 import React from 'react';
 import Task from './Task';
 
-const UrgentNotImportant = ({data}) => {
+const UrgentNotImportant = ({data, handleDeleteTask, handleChangeCategory}) => {
 
   const urgentNotImportant = data && data.filter(
     (item) => item.category === "urgent/not important"
@@ -9,7 +9,7 @@ const UrgentNotImportant = ({data}) => {
   return (
     <div className="urgentNotImportant">
       {urgentNotImportant && urgentNotImportant.map((item) => (
-        <Task item={item} key={item.id} />
+        <Task item={item} key={item.id} handleDeleteTask={handleDeleteTask} handleChangeCategory={handleChangeCategory}/>
       ))}
     </div>
   );

@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'BebasNeue-Regular' ;
+    src: url(../assets/fonts/BebasNeue-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Nunito-Regular' ;
+    src: url(../assets/fonts/Nunito-VariableFont_wght.ttf) format('truetype');
+}
+$titleFont: 'BebasNeue-Regular', sans-serif;
+$taskFont: 'Nunito-Regular', sans-serif;
+
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext} from "react";
 import axios from "axios";
 import NewTask from "./components/NewTask";
 import Header from "./components/Header";
@@ -6,7 +6,7 @@ import UrgentImportant from "./components/UrgentImportant";
 import UrgentNotImportant from "./components/UrgentNotImportant";
 import ImportantNotUrgent from "./components/ImportantNotUrgent";
 import NotImportantNotUrgent from "./components/NotImportantNotUrgent";
-
+import { TaskContext } from "./context/TaskContextProvider";
 
 const App = () => {
   const [data, setData] = useState("");
@@ -14,25 +14,50 @@ const App = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("urgent/important");
   const [status, setStatus] = useState(0);
+  const [isCreateTask, setIsCreateTask] = useState(false);
+  const { tasks, refreshTasksState } = useContext(TaskContext);
 
   const fetchData = async () => {
     const result = await axios.get("http://localhost:3000");
-    setData(result.data);
+    await setData(result.data);
+    await refreshTasksState(result.data);
+    console.log("tasks:", tasks);
   };
 
   const handleCreateTask = async (e) => {
     e.preventDefault();
-    const result = await axios.post("http://localhost:3000", {
+    await axios.post("http://localhost:3000", {
       title,
       description,
       date: Date.now(),
       category,
       status,
-
     });
-    const data = await result.data;
-    console.log(data);
     fetchData();
+    setTitle("");
+    setDescription("");
+    setCategory("urgent/important");
+    setStatus(0);
+    setIsCreateTask(false);
+  };
+
+  const handleDeleteTask = async (id) => {
+    await axios.delete(`http://localhost:3000/${id}`);
+    fetchData();
+  };
+
+  const handleChangeCategory = async (id, newCategory) => {
+    try {
+      await axios.put(`http://localhost:3000/${id}`, { category: newCategory });
+      
+      fetchData();
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de la catégorie :", error);
+    }
+  };
+
+  const wantToCreateTask = () => {
+    setIsCreateTask(!isCreateTask);
   };
 
   useEffect(() => {
@@ -42,12 +67,24 @@ const App = () => {
   return (
     <>
       <Header />
-      <NewTask handleCreateTask={handleCreateTask} setTitle={setTitle} setDescription={setDescription} setCategory={setCategory} setStatus={setStatus}/>
+      <NewTask
+        handleCreateTask={handleCreateTask}
+        wantToCreateTask={wantToCreateTask}
+        setTitle={setTitle}
+        setDescription={setDescription}
+        setCategory={setCategory}
+        setStatus={setStatus}
+        isCreateTask={isCreateTask}
+      />
       <section className="gridContainer">
-        <UrgentImportant data={data} />
-        <UrgentNotImportant data={data} />
-        <ImportantNotUrgent data={data} />
-        <NotImportantNotUrgent data={data} />
+        <UrgentImportant data={data} handleDeleteTask={handleDeleteTask} handleChangeCategory={handleChangeCategory} />
+        <UrgentNotImportant data={data} handleDeleteTask={handleDeleteTask} handleChangeCategory={handleChangeCategory} />
+        <ImportantNotUrgent data={data} handleDeleteTask={handleDeleteTask} handleChangeCategory={handleChangeCategory}/>
+        <NotImportantNotUrgent
+          data={data}
+          handleDeleteTask={handleDeleteTask}
+          handleChangeCategory={handleChangeCategory}
+        />
       </section>
     </>
   );
