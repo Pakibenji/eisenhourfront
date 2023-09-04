@@ -19,6 +19,9 @@
         color: #000;
         cursor: pointer;
     }
+    &:active {
+        box-shadow: inset 0px 0px 3px 6px #666;
+    }
 }
 .newTaskForm {
     display: flex;
@@ -35,19 +38,8 @@
         font-size: 1rem;
         font-family: $titleFont;
         text-align: center;
+        font-family: $taskFont;
     }
-    & textarea {
-        width: 50%;
-        height: 10rem;
-        margin: 1rem 0;
-        border: 1px solid #000;
-        border-radius: 5px;
-        padding: 0 1rem;
-        font-size: 1rem;
-        font-family: $titleFont;
-        text-align: center;
-    }
-
     & select {
         width: 50%;
         height: 2rem;
@@ -59,7 +51,6 @@
         font-family: $titleFont;
         text-align: center;
     }
-
     & button {
         width: 30%;
         height: 2rem;
@@ -77,6 +68,9 @@
             background-color: #fff;
             color: #000;
             cursor: pointer;
+        }
+        &:active {
+            box-shadow: inset 0px 0px 3px 6px #666;
         }
     }
 }
